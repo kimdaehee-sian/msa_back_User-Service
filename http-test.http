@@ -1,0 +1,101 @@
+### User Service API 테스트
+
+### 1. 사용자 생성
+POST http://localhost:8081/users
+Content-Type: application/json
+
+{
+  "nickname": "테스트유저1",
+  "language": "ko"
+}
+
+###
+
+### 2. 다른 사용자 생성
+POST http://localhost:8081/users
+Content-Type: application/json
+
+{
+  "nickname": "테스트유저2",
+  "language": "en"
+}
+
+###
+
+### 3. 사용자 조회 (ID: 1)
+GET http://localhost:8081/users/1
+
+###
+
+### 4. 사용자 조회 (ID: 2)
+GET http://localhost:8081/users/2
+
+###
+
+### 5. 존재하지 않는 사용자 조회 (에러 테스트)
+GET http://localhost:8081/users/999
+
+###
+
+### 6. 사용자 정보 수정 (ID: 1)
+PATCH http://localhost:8081/users/1
+Content-Type: application/json
+
+{
+  "nickname": "수정된닉네임",
+  "language": "en"
+}
+
+###
+
+### 7. 닉네임만 수정
+PATCH http://localhost:8081/users/1
+Content-Type: application/json
+
+{
+  "nickname": "새로운닉네임"
+}
+
+###
+
+### 8. 언어만 수정
+PATCH http://localhost:8081/users/1
+Content-Type: application/json
+
+{
+  "language": "ko"
+}
+
+###
+
+### 9. 중복 닉네임으로 생성 (에러 테스트)
+POST http://localhost:8081/users
+Content-Type: application/json
+
+{
+  "nickname": "테스트유저2",
+  "language": "ko"
+}
+
+###
+
+### 10. 잘못된 데이터로 생성 (에러 테스트)
+POST http://localhost:8081/users
+Content-Type: application/json
+
+{
+  "nickname": "",
+  "language": "ko"
+}
+
+###
+
+### 11. Actuator Health Check
+GET http://localhost:8081/actuator/health
+
+###
+
+### 12. Actuator Info
+GET http://localhost:8081/actuator/info
+
+### 
