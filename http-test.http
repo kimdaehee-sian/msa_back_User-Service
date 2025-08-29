@@ -98,4 +98,19 @@ GET http://localhost:8081/actuator/health
 ### 12. Actuator Info
 GET http://localhost:8081/actuator/info
 
+###
+
+### 13. 닉네임으로 사용자 검색
+GET http://localhost:8081/users/search?nickname=테스트유저2
+
+###
+
+### 14. 닉네임으로 사용자 검색 (부분 검색)
+GET http://localhost:8081/users/search?nickname=유저
+
+###
+
+### 15. 닉네임으로 사용자 검색 (대소문자 무시)
+GET http://localhost:8081/users/search?nickname=TEST
+
 ### 

@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -69,6 +72,17 @@ public class UserService {
         log.info("사용자 수정 완료: ID={}, 닉네임={}", updatedUser.getId(), updatedUser.getNickname());
         
         return mapToUserResponse(updatedUser);
+    }
+    
+    public List<UserResponse> searchUsersByNickname(String nickname) {
+        log.info("닉네임으로 사용자 검색 요청: {}", nickname);
+        
+        List<User> users = userRepository.findByNicknameContainingIgnoreCase(nickname);
+        log.info("검색 결과: {}명의 사용자 발견", users.size());
+        
+        return users.stream()
+                .map(this::mapToUserResponse)
+                .collect(Collectors.toList());
     }
     
     private UserResponse mapToUserResponse(User user) {

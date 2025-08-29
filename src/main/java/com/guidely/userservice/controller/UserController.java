@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -25,6 +26,14 @@ public class UserController {
         log.info("사용자 생성 API 호출: {}", request.getNickname());
         UserResponse response = userService.createUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+    
+    @GetMapping("/search")
+    public ResponseEntity<List<UserResponse>> searchUsersByNickname(
+            @RequestParam String nickname) {
+        log.info("닉네임 검색 API 호출: {}", nickname);
+        List<UserResponse> responses = userService.searchUsersByNickname(nickname);
+        return ResponseEntity.ok(responses);
     }
     
     @GetMapping("/{id}")
